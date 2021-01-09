@@ -56,7 +56,7 @@ x_opt     = zeros(n,1);
 while nnz(x_opt)~=s  
 x_opt(I)  = randn(s,1); 
 end
- 
+x_opt(I)   = x_opt(I) + 0.01*sign(x_opt(I));  
 data.A     = normalization(A, 3);                   % required
 data.b     = data.A(:,I)*x_opt(I)+nf*randn(m,1);    % required
 data.At    = data.A';                               % required
