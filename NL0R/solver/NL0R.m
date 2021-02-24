@@ -10,7 +10,7 @@ function out = NL0R(problem,data,n,pars)
 %               = 'CS',  compressed sensing problems
 %               = 'LCP', linear complementarity problems
 %               = 'LR',  sparse logistic regression problems
-%     data:     A triple structure, (required)
+%     data:     A triple structure  (data.A, data.At, data.b) (required)
 %               data.A, the measurement matrix, or a function handle @(x)A(x);
 %               data.At = data.A',or a function handle @(x)At(x);
 %               data.b, the observation vector 
