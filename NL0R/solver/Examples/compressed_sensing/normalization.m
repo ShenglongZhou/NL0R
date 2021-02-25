@@ -50,7 +50,7 @@ else
     end
 end
 
-fprintf(' Nomorlization used %2.4f seconds.\n',toc(t0)); 
+% fprintf(' Nomorlization used %2.4f seconds.\n',toc(t0)); 
 
 end
 
