@@ -17,7 +17,7 @@ function data = compressed_sensing_data(problemname,m,n,s,nf )
 % written by Shenglong Zhou, 13/10/2018
 
 start = tic;
-fprintf('  Please wait for CS data deneration ...\n'); 
+fprintf(' Please wait for CS data deneration ...\n'); 
 
 A = zeros(m,n);
  
