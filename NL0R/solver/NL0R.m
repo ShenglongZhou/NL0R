@@ -80,10 +80,10 @@ Nzx     = zeros(1,itmax);
 FNorm   = @(x)norm(x)^2;
 
 if disp 
-   fprintf(' Start to run the solver...\n'); 
-   fprintf('-------------------------------------------------\n');
-   fprintf(' Iter       Error         Ojective       Sparsity \n'); 
-   fprintf('-------------------------------------------------\n');
+   fprintf(' Start to run the solver -- NL0R \n'); 
+   fprintf(' ----------------------------------------------\n');
+   fprintf(' Iter      Error    Ojective    CPUTime   |x|_0\n'); 
+   fprintf(' ----------------------------------------------\n');
 end
 
 if  isfield(pars,'xopt') && nnz(pars.xopt)<=100 && disp
@@ -145,8 +145,8 @@ for iter  = 1:itmax
     Err(iter) = FxT/sqrt(n); 
     Nzx(iter) = nx;
     if  disp  
-        fprintf('%4d       %5.2e       %5.2e         %d\n',...
-               iter, Err(iter), obj, nx); 
+        fprintf('%4d    %5.2e    %5.2e   %5.2fsec  %6d\n',...
+               iter, Err(iter), obj,toc(t0), nx); 
     end
     
     % Stopping criteria   
@@ -289,12 +289,12 @@ if draw && iter >= 2
 end
 
 if disp 
-   fprintf('-------------------------------------------------\n');
+   fprintf(' ----------------------------------------------\n');
    normgrad    = FNorm(g);
    if normgrad < 1e-10
       fprintf(' A global optimal solution might be found\n');
-      fprintf(' because of ||gradient||=%5.2e!\n',normgrad); 
-      fprintf('-------------------------------------------------\n');
+      fprintf(' because of ||gradient|| = %5.2e!\n',normgrad); 
+      fprintf(' ----------------------------------------------\n');
    end
 end
 
@@ -362,10 +362,3 @@ function ReoveryShow(xo,x,ind)
        legend('Ground-Truth', 'Recovered', 'Location', 'best')
     end
 end
-
-
-
- 
-
- 
-
