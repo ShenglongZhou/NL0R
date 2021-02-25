@@ -15,7 +15,7 @@ function [data,out] = logistic_random_data(type,m,n,s,rho)
 % written by Shenglong Zhou, 13/10/2018
 
 start = tic;
-fprintf(' Start to generate the logistic regression data...\n'); 
+fprintf(' Please wait for LogitReg data deneration ...\n'); 
 switch type
     case 'Indipendent'
         I0    = randperm(m);
