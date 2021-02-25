@@ -17,7 +17,7 @@ function data = lcp_data(example,n,s)
 % written by Shenglong Zhou, 05/12/2019
 
 start = tic;
-fprintf(' Start to generate the linear complementarity problem data...\n'); 
+fprintf(' Please wait for LCP data deneration ...\n'); 
 switch example
     case 'z-mat'
          M       = eye(n)-ones(n)/n;
