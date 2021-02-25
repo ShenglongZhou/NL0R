@@ -54,6 +54,7 @@
 % Send your comments and suggestions to <<< shenglong.zhou@soton.ac.uk >>> 
 % Warning: Accuracy may not be guaranteed !!!!! 
 
+% Here are some examples that you can run
 % =================================================================
 % Example I:  compressed sensing problem
 
@@ -64,8 +65,8 @@ x         = zeros(n,1);
 I         = randperm(n);
 x(I(1:s)) = randn(s,1);
 data.A    = randn(m,n)/sqrt(n);
-data.b    = data.A*x 
 data.At   = data.A'
+data.b    = data.A*x 
 pars.rate = (n>=1e3)*0.25+(n<1e3)*0.75;  
 out       = NL0R('CS',data,n,pars) 
 ReoveryShow(out.sol,x,[900,500,500,250],1)
@@ -76,12 +77,13 @@ ReoveryShow(out.sol,x,[900,500,500,250],1)
 n         = 2000; 
 s         = ceil(0.01*n);     
 x         = zeros(n,1);
-I         = randperm(n); I = I(1:s);
-x(I)      = rand(s,1);
+I         = randperm(n); 
+T         = I(1:s);
+x(T)      = rand(s,1);
 A         = randn(n,ceil(n/4));
-data.A    = A*A'/n;  Ax=data.A*x;
-data.b    = abs(Ax); data.b(I)=-Ax(I); 
-data.At   = data.A'
+data.A    = A*A'/n; 
+Ax        = data.A*x;
+data.b    = abs(Ax); data.b(T)=-Ax(T); 
 data.n    = n;
 pars.rate = (n>=1e3)*0.25+(n<1e3)*0.75;  
 out       = NL0R('LCP',data,n,pars) 
@@ -94,15 +96,14 @@ n         = 2000;
 m         = ceil(0.25*n);
 s         = ceil(0.05*n);     
 I         = randperm(n);
-I         = I(1:s); 
+T         = I(1:s); 
 data.A    = randn(m,n); 
 data.At   = data.A'; 
-q         = 1./(1+exp(-data.A(:,I)*randn(s,1)));
+q         = 1./(1+exp(-data.A(:,T)*randn(s,1)));
 data.b    = zeros(m,1);
 for i     = 1:m    
 data.b(i) = randsrc(1,1,[0 1; 1-q(i) q(i)]);
 end               
-
 pars.lam  = 1e-3;
 pars.draw = 1;
 pars.rate = (n>=1e3)*0.5+(n<1e3)*0.75;
