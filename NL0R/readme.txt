@@ -82,8 +82,10 @@ T         = I(1:s);
 x(T)      = rand(s,1);
 A         = randn(n,ceil(n/4));
 data.A    = A*A'/n; 
+data.At   = data.A;; 
 Ax        = data.A*x;
-data.b    = abs(Ax); data.b(T)=-Ax(T); 
+data.b    = abs(Ax); 
+data.b(T) = -Ax(T); 
 data.n    = n;
 pars.rate = (n>=1e3)*0.25+(n<1e3)*0.75;  
 out       = NL0R('LCP',data,n,pars) 
