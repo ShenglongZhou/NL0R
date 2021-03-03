@@ -54,7 +54,8 @@ switch problem
     case 'LCP'; fun  = @lcp;
     case 'LR';  fun  = @logistic_regression; 
 end
-func = @(x,key,T1,T2)fun(x,key,T1,T2,data);
+data.n = n;
+func   = @(x,key,T1,T2)fun(x,key,T1,T2,data);
 
 if nargin>=3
     if nargin<4; pars=[]; end    
