@@ -1,7 +1,7 @@
 % demon sparse compressed sensing problems 
 clc; clear; close all; 
 
-n         = 500; 
+n         = 1000; 
 m         = ceil(0.25*n);
 s         = ceil(0.05*n);     
 
@@ -16,7 +16,7 @@ fprintf(' Objective:         %5.2e\n',  out.obj);
 if isfield(data,'xopt')
    fprintf(' Accuracy:          %5.2e\n',...
    norm(out.sol-data.xopt)/norm(data.xopt)); 
-   if  s<=100
+   if  s<=500
        ReoveryDisplay(data.xopt,out.sol,[900,500,500,250],1)
    end
 end
