@@ -12,18 +12,18 @@ sigma     = 0.05;   % 0.05 0.01
 nsam      = 60;     % 40 60 
 [data.A,data.At,data.b,be,~,~,out0]...
           = getrealdata(Img,nsam,sigma,0);
-data.n    = size(out0.I,2)^2;
-
+      
+n         = size(out0.I,2)^2;
 pars.tau  = sigma;
 pars.lam  = max(abs(data.b))^2*pars.tau/1e4;   
 pars.obj  = 2*norm(data.b-be)^2/3;
-out       = NL0R('CS',data,data.n,pars);   
+out       = NL0R('CS',data,n,pars);   
 
 
 fprintf(' CPU time:          %.3fsec\n', out.time);
 fprintf(' Sparsity:          %.2d\n', nnz(out.sol));
 fprintf(' Objective:         %5.2e\n', out.obj);
-fprintf(' Sample size:       %dx%d\n',length(data.b),data.n);
+fprintf(' Sample size:       %dx%d\n',length(data.b),n);
 
 % display results 
 figure('Renderer', 'painters', 'Position', [800, 200, 600 250])
