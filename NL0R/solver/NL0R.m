@@ -37,8 +37,8 @@ function out = NL0R(problem,data,n,pars)
 % 
 % 
 % This code is programmed based on the algorithm proposed in 
-% S. Zhou, L. Pan and N. Xiu, 2020, 
-% Newton Method for l_0 Regularized Optimization.
+% S. Zhou, L. Pan and N. Xiu, 2021, 
+% Newton Method for l_0 Regularized Optimization, Numerical Algorithm.
 % Send your comments and suggestions to <<< shenglong.zhou@soton.ac.uk >>> 
 % Warning: Accuracy may not be guaranteed !!!!! 
 
