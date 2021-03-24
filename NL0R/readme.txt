@@ -4,7 +4,7 @@
 % [2] run demonXXXX.m to solve  different problems
 % 
 % This source code contains the algorithm described in:
-% `S.Zhou, L.Pan and N.Xiu, 2020, Newton Method for l_0 Regularized Optimization'
+% `S.Zhou, L.Pan and N.Xiu, Newton Method for l0 Regularized Optimization, Numerical Algorithm, 2021'
 % Please give credits to this paper if you use the code for your research.
 % 
 % ===================================================================
