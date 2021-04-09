@@ -83,7 +83,7 @@ FNorm   = @(x)norm(x)^2;
 if disp 
    fprintf(' Start to run the solver -- NL0R \n'); 
    fprintf(' ----------------------------------------------\n');
-   fprintf(' Iter      Error    Ojective    CPUTime   |x|_0\n'); 
+   fprintf(' Iter      Error    Objective   CPUTime   |x|_0\n'); 
    fprintf(' ----------------------------------------------\n');
 end
 
