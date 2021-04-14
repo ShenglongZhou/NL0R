@@ -18,7 +18,7 @@ function out = NL0R(problem,data,n,pars)
 %     pars:     Parameters are all OPTIONAL
 %               pars.x0      --  Starting point of x (default, zeros(n,1))
 %               pars.tau     --  A positive scalar (default, (n<=1e3)+(n>1e3)/2)
-%               pars.lam     --  A initial penalty parameter (default, maxlam/2)
+%               pars.lam     --  An initial penalty parameter (default, maxlam/2)
 %               pars.rate    --  A positive scalar to adjust lam, (default, rate0) 
 %               pars.disp    --  Display results for each iteration if pars.disp=1 (default)
 %                                Don't display results for each iteration if pars.disp=1
