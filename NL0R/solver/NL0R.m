@@ -26,7 +26,7 @@ function out = NL0R(problem,data,n,pars)
 %                                No graph will be drawn if pars.draw=1 
 %               pars.maxit   --  Maximum number of iterations, (default,2000) 
 %               pars.tol     --  Tolerance of the halting condition, (default,1e-6)
-%               pars.obj     --  An upper bound of f(x), (default,1e-10)
+%               pars.obj     --  A predefined lower bound of f(x), (default,1e-20)
 % Outputs:
 %     out.sol:           The sparse solution x
 %     out.sparsity:      Sparsity level of out.sol
