@@ -1,5 +1,5 @@
 function out = NL0R(problem,data,n,pars)
-% This code aims at solving the sparsity constrained optimization with form
+% This code aims at solving the L_0-regularized sparse optimization with form
 % 
 %         min_{x\in R^n} f(x) + \lambda \|x\|_0 
 % 
@@ -17,8 +17,8 @@ function out = NL0R(problem,data,n,pars)
 %     n:        Dimension of the solution x, (required)             
 %     pars:     Parameters are all OPTIONAL
 %               pars.x0      --  Starting point of x (default, zeros(n,1))
-%               pars.tau     --  A positive scalar (default, tau0)
-%               pars.lam     --  A positive scalar (default, maxlam/2)
+%               pars.tau     --  A positive scalar (default, (n<=1e3)+(n>1e3)/2)
+%               pars.lam     --  A initial penalty parameter (default, maxlam/2)
 %               pars.rate    --  A positive scalar to adjust lam, (default, rate0) 
 %               pars.disp    --  Display results for each iteration if pars.disp=1 (default)
 %                                Don't display results for each iteration if pars.disp=1
