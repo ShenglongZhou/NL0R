@@ -53,7 +53,6 @@ if isfield(pars,'obj');   pobj  = pars.obj;   else; pobj  = 1e-20;  end
 if isfield(pars,'tol');   tol   = pars.tol;   else; tol   = 1e-10;  end 
 
 x       = x0;
-I       = 1:n;
 Err     = zeros(1,itmax);
 Obj     = zeros(1,itmax);
 Nzx     = zeros(1,itmax);
