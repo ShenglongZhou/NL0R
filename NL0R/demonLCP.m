@@ -1,7 +1,7 @@
 % demon sparse linear complementarity problems
 clc; close all; clear all; warning off
 
-n         = 5000;
+n         = 10000;
 r         = 0.01;
 s         = ceil(r*n);
 data      = LCPdata('sdp',n,s);
