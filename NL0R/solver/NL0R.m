@@ -330,6 +330,6 @@ function ReoveryShow(xo,x,ind)
             ', Number of mis-indices= ',num2str(wrong)); 
        title(strcat(st1,st2))
        set(0,'DefaultAxesTitleFontWeight','normal');
-       legend('Ground-Truth', 'Recovered', 'Location', 'best')
+       legend('Ground-Truth', 'Recovered')
     end
 end
