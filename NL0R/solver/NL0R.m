@@ -232,7 +232,7 @@ for iter  = 1:itmax
     
     if  isfield(pars,'xopt') && nnz(pars.xopt)<=100 && disp
         ReoveryShow(pars.xopt,x,1); 
-        hold off, pause(0.5)
+        hold off, pause(0.001)
     end
 
 end
@@ -326,7 +326,7 @@ function ReoveryShow(xo,x,ind)
     if ind
        st1   = strcat('Accuracy= ',num2str(norm(x-xo),2));
        wrong = nnz(xo)-nnz(find(x~=0 & xo~=0)); 
-       st2   = strcat(', Sparsity= ',num2str(nnz(xo)),...
+       st2   = strcat(', Sparsity= ',num2str(nnz(x)),...
             ', Number of mis-indices= ',num2str(wrong)); 
        title(strcat(st1,st2))
        set(0,'DefaultAxesTitleFontWeight','normal');
