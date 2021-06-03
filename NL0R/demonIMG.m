@@ -17,7 +17,6 @@ data.n    = n;
 pars.tau  = sigma;
 pars.lam  = max(abs(data.b))^2*pars.tau/1e4;   
 pars.obj  = 2*norm(data.b-be)^2/3;
-
 func      = @(x,T1,T2)CS(x,T1,T2,data);
 out       = NL0R(func,n,pars);   
 
