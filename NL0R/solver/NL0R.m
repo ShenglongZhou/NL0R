@@ -140,7 +140,7 @@ for iter  = 1:itmax
     if  iter   == 1 || flag    % two consective iterates have same supports
         H       = func(x0,T,[]);     
         if isa(H,'function_handle')
-          [d,~] = pcg(H,-g(T),pcgtol,pcgit); 
+           d    = my_cg(H,-g(T),pcgtol,pcgit,zeros(nT,1)); 
         else 
            d    = -H\g(T);  
         end
@@ -155,15 +155,15 @@ for iter  = 1:itmax
         [H,D]  = func(x0,T,TTc);
           
         if isa(D,'function_handle')
-           Dx0   = D(x0(TTc));  
+           Dx0 = D(x0(TTc));  
         else
-           Dx0   = D*x0(TTc); 
+           Dx0 = D*x0(TTc); 
         end
         
         if isa(H,'function_handle')
-           [d,~]= pcg(H,Dx0 - g(T), pcgtol,pcgit); 
+           d   = my_cg( H,Dx0 - g(T), pcgtol,pcgit,zeros(nT,1));
         else
-            d   = H\( Dx0 - g(T)); 
+            d  = H\( Dx0 - g(T)); 
         end
          
         Fnz    = FNorm(x(TTc))/4/tau;
@@ -331,4 +331,31 @@ function ReoveryShow(xo,x,ind)
        set(0,'DefaultAxesTitleFontWeight','normal');
        legend('Ground-Truth', 'Recovered')
     end
+end
+
+
+% conjugate gradient-------------------------------------------------------
+function x = my_cg(fx,b,cgtol,cgit,x)
+    r = b;
+    e = sum(r.*r);
+    t = e;
+    for i = 1:cgit  
+        if e < cgtol*t; break; end
+        if  i == 1  
+            p = r;
+        else
+            p = r + (e/e0)*p;
+        end  
+        if  isa(fx,'function_handle')
+            w  = fx(p);
+        else
+            w  = fx*p;
+        end
+        a  = e/sum(p.*w);
+        x  = x + a * p;
+        r  = r - a * w;
+        e0 = e;
+        e  = sum(r.*r);
+    end 
+  
 end
