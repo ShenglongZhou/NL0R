@@ -56,7 +56,7 @@ x       = x0;
 Err     = zeros(1,itmax);
 Obj     = zeros(1,itmax);
 Nzx     = zeros(1,itmax);
-Fnorm   = @(var)norm(var,'fro')^2;
+FNorm   = @(var)norm(var,'fro')^2;
 
 if disp 
    fprintf(' Start to run the solver -- NL0R \n'); 
