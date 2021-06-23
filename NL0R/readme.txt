@@ -62,7 +62,7 @@ data.b    = data.A*x;
 func      = @(x,T1,T2)CS(x,T1,T2,data);
 pars.rate = (n>=1e3)*0.25+(n<1e3)*0.5;  
 out       = NL0R(func,n,pars);
-ReoveryShow(out.sol,x,[900,500,500,250],1)
+RecoverShow(out.sol,x,[900,500,500,250],1)
 
 % =================================================================
 % Example II:  linear complementarity problem 
@@ -82,7 +82,7 @@ data.b(T) = -Ax(T);
 pars.rate = 0.25*(r<0.05)+0.5*(r>=0.05);
 func      = @(x,T1,T2)LCP(x,T1,T2,data);
 out       = NL0R(func,n,pars); 
-ReoveryShow(out.sol,x,[900,500,500,250],1)
+RecoverShow(out.sol,x,[900,500,500,250],1)
 
 % =================================================================
 % Example III:  Logistic regression problem
