@@ -65,11 +65,6 @@ if disp
    fprintf(' ----------------------------------------------\n');
 end
 
-if  isfield(pars,'xopt') && nnz(pars.xopt)<=100 && disp
-    figure('Renderer', 'painters', 'Position', [900,500,500,250]);
-    ReoveryShow(pars.xopt,x,1); 
-end
-
 % Initial check for the starting point
 [obj,g] = func(x,[],[]);
 if FNorm(g)==0 
@@ -228,11 +223,6 @@ for iter  = 1:itmax
     if mod(iter,1)==0 
        lam  = min(maxlam,lam*(2*(nx>=0.1*n)+rate0));
     end
-    
-    if  isfield(pars,'xopt') && nnz(pars.xopt)<=100 && disp
-        ReoveryShow(pars.xopt,x,1); 
-        hold off, pause(0.001)
-    end
 
 end
 
@@ -312,7 +302,7 @@ end
 
 
 % display x ---------------------------------------
-function ReoveryShow(xo,x,ind)
+function RecoveryShow(xo,x,ind)
 
    % figure('Renderer', 'painters', 'Position', pos)
     stem(find(xo),xo(xo~=0),'bo-','MarkerSize',6, 'LineWidth',1),hold on
