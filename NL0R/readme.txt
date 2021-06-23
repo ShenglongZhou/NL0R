@@ -79,7 +79,7 @@ data.At   = data.A;;
 Ax        = data.A*x;
 data.b    = abs(Ax); 
 data.b(T) = -Ax(T); 
-pars.rate = 0.25*(r<0.05)+0.5*(r>=0.05);
+pars.rate = 0.25*(s/n<0.05)+0.5*(s/n>=0.05);
 func      = @(x,T1,T2)LCP(x,T1,T2,data);
 out       = NL0R(func,n,pars); 
 RecoverShow(out.sol,x,[900,500,500,250],1)
