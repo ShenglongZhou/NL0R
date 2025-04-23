@@ -56,8 +56,7 @@ x       = x0;
 Err     = zeros(1,itmax);
 Obj     = zeros(1,itmax);
 Nzx     = zeros(1,itmax);
-FNorm   = @(var)norm(var,'fro')^2;
-
+FNorm   = @(var)norm(var,'fro')^2; 
 if disp 
    fprintf(' Start to run the solver -- NL0R \n'); 
    fprintf(' ----------------------------------------------\n');
@@ -101,10 +100,18 @@ nx      = 0;
 
 % The main body  
 for iter  = 1:itmax
-    x0    = x; 
-    xtg   = x0-tau*g; 
-    T     = find(abs(xtg)>=sqrt(2*tau*lam)); 
+    x0    = x;  
+    xtg   =  x0-tau*g ; 
+    T     = find(abs(xtg)>sqrt(2*tau*lam));     
     nT    = nnz(T);
+    if nT > 0.12*n
+       Tnew = SparseApprox(xtg(T),T); 
+       if ~isempty(Tnew)  
+           T  = Tnew;  
+           nT = nnz(T);
+       end 
+    end
+    
     TTc   = setdiff(T,T0);
     flag  = isempty(TTc);    
 
@@ -228,8 +235,7 @@ end
 
 %Results output ------------------------------------------------- 
 
-iter        = iter-1;
-x           = SparseApprox(x,n);
+iter        = iter-1; 
 [obj,g]     = func(x,[],[]);
 time        = toc(t0);
 out.sparsity= nnz(x); 
@@ -271,33 +277,15 @@ function  PlotFun(input,iter,c, key)
 end
 
 % get the sparse approximation of x ---------------------------------------
-function sx = SparseApprox(x0,n)
-x       = abs(x0);
-T       = find(x);
-[sx,id] = sort(x(T),'descend'); 
-y       = 0;
-nx      = sum(x(T));
-nT      = nnz(T);
-t       = zeros(nT-1,1);
-stop    = 0;
-for i   = 1:nT
-    if y > 0.99995*nx && stop; break; end
-    y    = y + sx(i); 
-    if i < nT
-    t(i) = sx(i)/sx(i+1);
-    stop = (t(i)>1e3);
-    end  
-end
- 
-if  i  < nT
-    j  = find(t==max(t));  
-    i  = j(1);
-else
-    i  = nT;
-end
- 
-sx = zeros(n,1);
-sx(T(id(1:i))) = x0(T(id(1:i)));
+function T = SparseApprox(x0,T0)
+x       = abs(x0); 
+sx      = sort(x(x~=0));  
+[mx,it] = max(normalize(sx(2:end)./sx(1:end-1)));
+th      = 0; 
+if mx   > 10 && it(1)>1
+   th   = sx(it(1)); 
+end         
+T = T0(x>th); 
 end
 
 % conjugate gradient-------------------------------------------------------
