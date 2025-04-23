@@ -104,7 +104,7 @@ for iter  = 1:itmax
     xtg   =  x0-tau*g ; 
     T     = find(abs(xtg)>sqrt(2*tau*lam));     
     nT    = nnz(T);
-    if nT > 0.12*n
+    if nT > 0.1*n
        Tnew = SparseApprox(xtg(T),T); 
        if ~isempty(Tnew)  
            T  = Tnew;  
