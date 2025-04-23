@@ -50,7 +50,7 @@ if isfield(pars,'disp');  disp  = pars.disp;  else; disp  = 1;      end
 if isfield(pars,'draw');  draw  = pars.draw;  else; draw  = 0;      end
 if isfield(pars,'maxit'); itmax = pars.maxit; else; itmax = 2000;   end
 if isfield(pars,'obj');   pobj  = pars.obj;   else; pobj  = 1e-20;  end 
-if isfield(pars,'tol');   tol   = pars.tol;   else; tol   = 1e-10;  end 
+if isfield(pars,'tol');   tol   = pars.tol;   else; tol   = 1e-6;   end 
 
 x       = x0;
 Err     = zeros(1,itmax);
@@ -95,7 +95,6 @@ beta    = 0.5;
 sigma   = 5e-5;
 delta   = 1e-10;
 T0      = [];  
-mark    = 0;
 nx      = 0;
 
 % The main body  
@@ -104,11 +103,12 @@ for iter  = 1:itmax
     xtg   =  x0-tau*g ; 
     T     = find(abs(xtg)>sqrt(2*tau*lam));     
     nT    = nnz(T);
-    if nT > 0.1*n
-       Tnew = SparseApprox(xtg(T),T); 
-       if ~isempty(Tnew)  
+    if nT > max(0.12,0.2/log2(1+iter))*n 
+       Tnew  = SparseApprox(xtg(T),T); 
+       nTnew = nnz(Tnew );
+       if ~isempty(Tnew) && nT/nTnew < 20
            T  = Tnew;  
-           nT = nnz(T);
+           nT = nTnew;
        end 
     end
     
@@ -125,18 +125,15 @@ for iter  = 1:itmax
     end
     
     % Stopping criteria   
-    stop1  = (Err(iter)<tol); 
-    stop2  = (iter>1 && abs(obj-obj0)<1e-10*(1+obj));
-    stop3  = (nx==nT);
-    if (stop1 && stop2 && stop3 && flag) 
-        mark = mark + 1; 
-    end
-    
-    stop4 =  obj  < pobj;
-    stop5 =  iter > 9 && std(Nzx(iter-9:iter))<= 0 &&...
+    stop0  = Err(iter)<tol;  
+    stop1  = iter>1 && abs(obj-obj0)<1e-6*(1+obj);
+    stop2  = nx==nT;  
+    stop3  = stop0 && stop1 && stop2 && flag;  
+    stop4  = obj  < pobj;
+    stop5  = iter > 9 && std(Nzx(iter-9:iter))<= 0 &&...
              std(Err(iter-9:iter))^2 <= min(Err(iter-9:iter)) &&...
-             std(Obj(iter-9:iter))^2 <= min(Obj(iter-9:iter-1));
-    if mark==5 || stop4 || stop5, break;   end
+             std(Obj(iter-9:iter))^2 <= min(Obj(iter-9:iter-1)); 
+    if stop3 || stop4 || stop5, break;   end
    
     % update next iterate
     if  iter   == 1 || flag    % two consective iterates have same supports
