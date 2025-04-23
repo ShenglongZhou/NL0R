@@ -15,10 +15,9 @@ switch test
        xopt     = data.xopt;
        if nf    > 0; pars.tau = 0.5; end
   case 2       % Input any data including (data.A, data.b), e.g.,
-       I        = randperm(n); 
-       Tx       = I(1:s);
+       Tx       = randperm(n,s);  
        xopt     = zeros(n,1);  
-       xopt(Tx) = randn(s,1); 
+       xopt(Tx) = (0.1+rand(s,1)).*sign(randn(s,1));; 
        data.A   = randn(m,n)/sqrt(m);
        data.b   = data.A*xopt;  
 end  
