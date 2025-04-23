@@ -232,13 +232,15 @@ end
 
 %Results output ------------------------------------------------- 
 
+sol         = zeros(n,1); 
+sol(T)      = x(T);
 iter        = iter-1; 
-[obj,g]     = func(x,[],[]);
+[obj,g]     = func(sol,[],[]);
 time        = toc(t0);
-out.sparsity= nnz(x); 
+out.sparsity= nnz(sol); 
 out.time    = time;
 out.iter    = iter;
-out.sol     = x;
+out.sol     = sol;
 out.obj     = obj; 
 out.Obj     = Obj;
 
