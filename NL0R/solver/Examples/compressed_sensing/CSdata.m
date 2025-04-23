@@ -23,17 +23,13 @@ A = zeros(m,n);
 switch problemname
      
     case 'GaussianMat'        
-        A      = randn(m,n);
-        I      = randperm(n,s);  
-
+        A      = randn(m,n); 
     case 'PartialDCTMat'
         r      = rand(m,1);
         column = 1:n;
         for i  = 1:m 
         A(i,:) = cos(2*pi*r(i)*(column-1));
         end
-        I      = randperm(n,s);
-
     case 'ToeplitzCorMat'
         Sig    = zeros(n,n);
         t      = 1:n; 
@@ -41,16 +37,15 @@ switch problemname
         Sig(i,:)= (.5).^(abs(i-t)); 
         end
         Sig    = real(Sig^(1/2));   
-        A      = randn(m,n)*Sig;
-        I      = randperm(n,s);   
-        
+        A      = randn(m,n)*Sig;      
     otherwise
         disp('input a problen name');        
 end
 
-x_opt     = zeros(n,1);  
+I          = randperm(n,s);  
+x_opt      = zeros(n,1);  
 while nnz(x_opt)~=s  
-x_opt(I)  = (0.1+rand(s,1)).*sign(randn(s,1)); 
+x_opt(I)   = (0.1+rand(s,1)).*sign(randn(s,1)); 
 end
 data.A     = normalization(A, 3);                   % required
 data.b     = data.A(:,I)*x_opt(I)+nf*randn(m,1);    % required
@@ -59,4 +54,3 @@ clear A x_opt I0 I
 fprintf(' Data generation used %2.4f seconds.\n\n',toc(start)); 
 
 end
-
